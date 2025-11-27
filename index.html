@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #000;
+            color: #00ff00; /* Green text color */
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            background: linear-gradient(45deg, #00ff00, #00cc00); /* Green gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+        
+        h2 {
+            font-size: 1.2rem;
+            font-weight: 400;
+            opacity: 0.7;
+            margin-bottom: 30px;
+            color: #00ff00; /* Green text color */
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin: 20px 0 10px;
+            color: #00ff00;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ff00, transparent);
+            margin-top: 5px;
+        }
+        
+        .button-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            flex-grow: 1;
+            margin-top: 20px;
+        }
+        
+        .menu-button {
+            background: #ffffff; /* White background */
+            border-radius: 15px;
+            padding: 20px;
+            color: #000000; /* Black text for contrast */
+            font-size: 1.3rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .menu-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0, 255, 0, 0.2), rgba(0, 200, 0, 0.2)); /* Green gradient overlay */
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .menu-button:hover::before {
+            opacity: 1;
+        }
+        
+        .menu-button:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .menu-button:active {
+            transform: scale(0.98);
+        }
+        
+        .game-button {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e); /* Red gradient for game */
+            color: #fff;
+        }
+        
+        .game-button::before {
+            background: linear-gradient(45deg, rgba(255, 107, 107, 0.3), rgba(255, 142, 142, 0.3)); /* Red gradient overlay */
+        }
+        
+        .game-button::after {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e, #ff6b6b); /* Red gradient border */
+        }
+        
+        .icon {
+            margin-right: 15px;
+            font-size: 1.8rem;
+            width: 40px;
+            text-align: center;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.9rem;
+            opacity: 0.5;
+            margin-top: auto;
+            color: #00ff00; /* Green text color */
+        }
+        
+        /* Animation for page load */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .menu-button {
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+        
+        .menu-button:nth-child(1) { animation-delay: 0.1s; }
+        .menu-button:nth-child(2) { animation-delay: 0.2s; }
+        .menu-button:nth-child(3) { animation-delay: 0.3s; }
+        .menu-button:nth-child(4) { animation-delay: 0.4s; }
+        .menu-button:nth-child(5) { animation-delay: 0.5s; }
+        .menu-button:nth-child(6) { animation-delay: 0.6s; }
+        .menu-button:nth-child(7) { animation-delay: 0.7s; }
+        .menu-button:nth-child(8) { animation-delay: 0.8s; }
+        
+        /* Green border effect */
+        .menu-button::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00ff00, #00cc00, #00ff00); /* Green gradient border */
+            border-radius: 17px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .menu-button:hover::after {
+            opacity: 1;
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: none;
+            border: none;
+            color: #00ff00;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: none;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1rem;
+            }
+            
+            .menu-button {
+                font-size: 1.1rem;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Menu</h1>
+            <h2>Utilities of Edirear - All Free</h2>
+        </header>
+        
+        <div class="button-grid">
+            <button class="menu-button" id="weather">
+                <span class="icon">🌤️</span> Weather
+            </button>
+            
+            <button class="menu-button" id="ai-assistant">
+                <span class="icon">🤖</span> AI Assistant
+            </button>
+            
+            <button class="menu-button" id="shopping">
+                <span class="icon">🛒</span> Shopping
+            </button>
+            
+            <button class="menu-button" id="images">
+                <span class="icon">🖼️</span> Images
+            </button>
+            
+            <button class="menu-button" id="books">
+                <span class="icon">📚</span> Books
+            </button>
+            
+            <button class="menu-button" id="search-engine">
+                <span class="icon">🔍</span> Search Engine
+            </button>
+            
+            <button class="menu-button game-button" id="game">
+                <span class="icon">🎮</span> Games
+            </button>
+        </div>
+        
+        <footer>
+            <p>© 2023 Edirear | All utilities are free to use</p>
+        </footer>
+    </div>
+
+    <!-- Back Button -->
+    <button class="back-button" id="backButton">← Back</button>
+
+    <script>
+        // Add event listeners to buttons
+        document.getElementById('weather').addEventListener('click', function() {
+            window.location.href = 'https://edirearhelp.github.io/weather';
+        });
+        
+        document.getElementById('ai-assistant').addEventListener('click', function() {
+            window.location.href = 'https://edirearhelp.github.io/ai';
+        });
+        
+        document.getElementById('shopping').addEventListener('click', function() {
+            window.location.href = 'https://edirearhelp.github.io/shop';
+        });
+        
+        document.getElementById('images').addEventListener('click', function() {
+            window.location.href = 'https://edirearhelp.github.io/images';
+        });
+        
+        document.getElementById('books').addEventListener('click', function() {
+            window.location.href = 'https://edirearhelp.github.io/books';
+        });
+        
+        document.getElementById('search-engine').addEventListener('click', function() {
+            window.location.href = 'https://edirearhelp.github.io/Search-engine';
+        });
+        
+        // Game button functionality
+        document.getElementById('game').addEventListener('click', function() {
+            window.location.href = 'https://edirearhelp.github.io/game';
+        });
+        
+        // Back button functionality
+        document.getElementById('backButton').addEventListener('click', function() {
+            window.history.back();
+        });
+        
+        // Show back button when not on the main page
+        if (window.location.href !== 'https://edirearhelp.github.io/menu') {
+            document.getElementById('backButton').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
